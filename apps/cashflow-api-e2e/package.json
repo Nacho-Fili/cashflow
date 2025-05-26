@@ -1,5 +1,5 @@
 {
-  "name": "@cashflow/cashflow-e2e",
+  "name": "@cashflow/cashflow-api-e2e",
   "version": "0.0.1",
   "private": true,
   "nx": {
@@ -17,8 +17,8 @@
           "passWithNoTests": true
         },
         "dependsOn": [
-          "@cashflow/cashflow:build",
-          "@cashflow/cashflow:serve"
+          "@cashflow/cashflow-api:build",
+          "@cashflow/cashflow-api:serve"
         ]
       }
     },

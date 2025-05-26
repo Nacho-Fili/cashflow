@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IBankDto } from '@cashflow/cashflow';
 
-export class BankDto {
+export class BankDto implements IBankDto {
   @ApiProperty({ description: 'Unique identifier for the bank' })
   id: string;
 

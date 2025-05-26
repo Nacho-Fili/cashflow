@@ -1,7 +1,8 @@
+import { ICreateBankDto } from '@cashflow/cashflow';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
-export class CreateBankDto {
+export class CreateBankDto implements ICreateBankDto {
   @ApiProperty({
     description: 'Name of the bank',
     example: 'Bank of America',

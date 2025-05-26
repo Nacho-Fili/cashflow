@@ -1,5 +1,5 @@
 {
-  "name": "@cashflow/cashflow",
+  "name": "@cashflow/cashflow-api",
   "version": "0.0.1",
   "private": true,
   "nx": {
@@ -44,12 +44,6 @@
         "options": {
           "passWithNoTests": true
         }
-      },
-      "docker-build": {
-        "dependsOn": [
-          "build"
-        ],
-        "command": "docker build -f apps/cashflow-api/Dockerfile . -t @cashflow/cashflow"
       }
     },
     "name": "cashflow-api"
