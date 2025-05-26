@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strictPropertyInitialization": false,
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,

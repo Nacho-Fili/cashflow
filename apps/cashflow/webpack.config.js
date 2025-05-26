@@ -17,4 +17,7 @@ module.exports = {
       generatePackageJson: true,
     })
   ],
+  resolve: {
+    extensions: ['.ts', '.js', '.json']
+  }
 };
