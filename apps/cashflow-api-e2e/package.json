@@ -1,0 +1,27 @@
+{
+  "name": "@cashflow/cashflow-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "cashflow-api"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/cashflow-api-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "@cashflow/cashflow:build",
+          "@cashflow/cashflow:serve"
+        ]
+      }
+    },
+    "name": "cashflow-api-e2e"
+  }
+}
