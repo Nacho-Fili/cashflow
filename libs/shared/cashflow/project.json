@@ -1,0 +1,9 @@
+{
+  "name": "cashflow-shared",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/cashflow/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project cashflow-shared --web",
+  "targets": {}
+}
