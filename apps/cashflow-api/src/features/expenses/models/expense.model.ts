@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { ModificationTrackedModel } from '../../../shared/entities/modification-tracked.model';
 import { Category } from '../../categories/models/category.model';
 import { CreditCard } from '../../credit-cards/models/credit-card.model';
-import { Balance } from '../../banks/models/balance.model';
+import { Balance } from '../../balances/balance.model';
 import { Currency } from '../../currencies/models/currency.model';
 
 export enum ExpenseType {

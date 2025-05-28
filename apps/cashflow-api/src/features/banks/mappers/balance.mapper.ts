@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Balance } from '../models/balance.model';
+import { Balance } from '../../balances/balance.model';
 import { Bank } from '../models/bank.model';
 import { Currency } from '../../currencies/models/currency.model';
 

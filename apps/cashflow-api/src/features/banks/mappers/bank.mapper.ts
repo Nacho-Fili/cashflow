@@ -3,10 +3,10 @@ import { Bank } from '../models/bank.model';
 import { BankDto } from '../dtos/bank.dto';
 import { CreateBankDto } from '../dtos/create-bank.dto';
 import { UpdateBankDto } from '../dtos/update-bank.dto';
-import { Balance } from '../models/balance.model';
+import { Balance } from '../../balances/models/balance.model';
 import { CreateBalanceDto } from '../dtos/create-balance.dto';
 import { Currency } from '../../currencies/models/currency.model';
-import { BalanceDto } from '../dtos/balance.dto';
+import { BalanceDto } from '../../balances/dto/balance.dto';
 
 @Injectable()
 export class BankMapper {
@@ -24,6 +24,12 @@ export class BankMapper {
     bankDto.description = bank.description;
     bankDto.createdAt = bank.createdAt;
     bankDto.updatedAt = bank.updatedAt;
+    
+    // Map balances if they exist
+    if (bank.balances && bank.balances.length > 0) {
+      bankDto.balances = bank.balances.map(balance => this.toBalanceDto(balance));
+    }
+    
     return bankDto;
   }
 

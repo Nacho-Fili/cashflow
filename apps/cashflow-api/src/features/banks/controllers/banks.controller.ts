@@ -12,7 +12,6 @@ import { BanksService } from '../services/banks.service';
 import { CreateBankDto } from '../dtos/create-bank.dto';
 import { UpdateBankDto } from '../dtos/update-bank.dto';
 import { BankDto } from '../dtos/bank.dto';
-import { CreateBalanceDto } from '../dtos/create-balance.dto';
 
 @ApiTags('banks')
 @Controller('banks')
@@ -93,22 +92,5 @@ export class BanksController {
   @ApiResponse({ status: 404, description: 'Bank not found' })
   async remove(@Param('id') id: string): Promise<void> {
     return this.banksService.remove(id);
-  }
-
-  @Post(':id/balances')
-  @ApiOperation({
-    summary: 'Create balance on bank',
-    description: 'Creates and adds a balance to bank',
-  })
-  @ApiParam({ name: 'id', description: 'The unique identifier of the bank' })
-  @ApiResponse({
-    status: 201,
-    description: 'Balance successfully created and added to bank',
-  })
-  async createBalance(
-    @Param('id') id: string,
-    @Body() createBalanceDto: CreateBalanceDto,
-  ): Promise<BalanceDto> {
-    return this.banksService.createBalance(id, createBalanceDto);
   }
 }

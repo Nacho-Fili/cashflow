@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IBankDto } from '@cashflow/shared';
+import { BalanceDto } from '../../balances/dto/balance.dto';
 
 export class BankDto implements IBankDto {
   @ApiProperty({ description: 'Unique identifier for the bank' })
@@ -19,4 +20,11 @@ export class BankDto implements IBankDto {
 
   @ApiProperty({ description: 'Date when the bank record was last updated' })
   updatedAt: Date;
+  
+  @ApiProperty({ 
+    description: 'Balances associated with this bank',
+    type: () => [BalanceDto],
+    required: false
+  })
+  balances?: BalanceDto[];
 }

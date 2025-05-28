@@ -1,6 +1,6 @@
 import { ICreateBankDto } from '@cashflow/shared';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateBankDto implements ICreateBankDto {
   @ApiProperty({
@@ -21,4 +21,14 @@ export class CreateBankDto implements ICreateBankDto {
   @IsString()
   @MaxLength(500)
   description?: string;
+  
+  @ApiProperty({
+    description: 'Array of currency codes to create initial zero-balance accounts',
+    required: false,
+    example: ['USD', 'EUR', 'GBP'],
+  })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  currencyCodes?: string[];
 }
