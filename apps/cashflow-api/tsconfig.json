@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../libs/shared/cashflow"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {

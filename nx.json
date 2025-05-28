@@ -27,8 +27,7 @@
           "buildDepsName": "build-deps",
           "watchDepsName": "watch-deps"
         }
-      },
-      "exclude": ["libs/cashflow/*"]
+      }
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -51,7 +50,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/cashflow-e2e/**/*"]
+      "exclude": []
     },
     {
       "plugin": "@nx/next/plugin",
@@ -63,20 +62,16 @@
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
       }
-    },
-    {
-      "plugin": "@nx/js/typescript",
-      "include": ["libs/cashflow/*"],
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck"
-        }
-      }
     }
   ],
   "targetDefaults": {
     "test": {
       "dependsOn": ["^build"]
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "generators": {

@@ -1,1 +1,1 @@
-export * from './lib/cashflow-shared.js';
+export * from './lib/cashflow-shared';

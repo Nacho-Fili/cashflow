@@ -1,4 +1,3 @@
-import { Injectable } from "@nestjs/common";
 import axios, { AxiosError } from "axios";
 import { ICreateBankDto } from "../interfaces/create-bank-dto.interface";
 import { IBankDto } from "../interfaces/bank-dto.interface";
@@ -52,7 +51,6 @@ export enum ExpenseType {
   ONE_TIME = 'ONE_TIME',
 }
 
-@Injectable()
 export class CashflowApiService {
     apiUrl: string;
 

@@ -9,7 +9,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: '*', // Allow all origins for development; adjust for production
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      allowedHeaders: 'Content-Type, Accept, Authorization',
+    }
+  });
 
   // Set up global prefix
   const globalPrefix = 'api';
@@ -40,6 +46,9 @@ async function bootstrap() {
 
   // Start server
   const port = process.env.PORT || 3000;
+
+  app.enableCors();
+
   await app.listen(port);
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,

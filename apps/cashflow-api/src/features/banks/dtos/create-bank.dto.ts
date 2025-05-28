@@ -1,4 +1,4 @@
-import { ICreateBankDto } from '@cashflow/cashflow';
+import { ICreateBankDto } from '@cashflow/shared';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 

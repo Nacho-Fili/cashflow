@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IBankDto } from '@cashflow/cashflow';
+import { IBankDto } from '@cashflow/shared';
 
 export class BankDto implements IBankDto {
   @ApiProperty({ description: 'Unique identifier for the bank' })

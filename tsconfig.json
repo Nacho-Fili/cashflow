@@ -4,16 +4,16 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/cashflow-e2e"
-    },
-    {
-      "path": "./apps/cashflow"
-    },
-    {
-      "path": "./libs/cashflow"
-    },
-    {
       "path": "./apps/cashflow-app"
+    },
+    {
+      "path": "./libs/shared/cashflow"
+    },
+    {
+      "path": "./apps/cashflow-api-e2e"
+    },
+    {
+      "path": "./apps/cashflow-api"
     }
   ]
 }
