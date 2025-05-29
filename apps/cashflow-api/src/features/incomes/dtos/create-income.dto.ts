@@ -38,4 +38,8 @@ export class CreateIncomeDto {
   @IsOptional()
   @IsUUID()
   currencyId?: string;
+
+  @IsOptional()
+  @IsUUID()
+  balanceId?: string;
 }

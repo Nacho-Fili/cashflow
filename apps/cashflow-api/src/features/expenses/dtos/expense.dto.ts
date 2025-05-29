@@ -8,11 +8,12 @@ export class ExpenseDto {
   date: Date;
   creditCardId?: string;
   categoryId: string;
-  totalInstallments?: number;
-  currentInstallment?: number;
-  startDate?: Date;
-  endDate?: Date;
+  totalInstallments?: number | null;
+  currentInstallment?: number | null;
+  startDate?: Date | null;
+  endDate?: Date | null;
   isRecurring?: boolean;
   createdAt: Date;
   updatedAt: Date;
+  balanceId?: string;
 }

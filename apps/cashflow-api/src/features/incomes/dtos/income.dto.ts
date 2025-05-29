@@ -8,4 +8,5 @@ export class IncomeDto {
   currencyId?: string;
   createdAt: Date;
   updatedAt: Date;
+  balanceId?: string;
 }

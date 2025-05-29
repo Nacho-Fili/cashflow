@@ -37,6 +37,10 @@ export class CreateExpenseDto {
   @IsUUID()
   creditCardId?: string;
 
+  @IsOptional()
+  @IsUUID()
+  balanceId?: string;
+
   @IsNotEmpty()
   @IsUUID()
   categoryId: string;

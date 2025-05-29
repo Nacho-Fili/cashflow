@@ -2,7 +2,7 @@ import { Column, Entity, OneToMany } from 'typeorm';
 import { ModificationTrackedModel } from '../../../shared/entities/modification-tracked.model';
 import { Income } from './income.model';
 
-@Entity()
+@Entity('income_sources')
 export class IncomeSource extends ModificationTrackedModel {
   @Column()
   name: string;

@@ -3,7 +3,7 @@ import { ModificationTrackedModel } from '../../../shared/entities/modification-
 import { Bank } from '../../banks/models/bank.model';
 import { Expense } from '../../expenses/models/expense.model';
 
-@Entity()
+@Entity('credit_cards')
 export class CreditCard extends ModificationTrackedModel {
   @Column()
   name: string;
@@ -29,4 +29,9 @@ export class CreditCard extends ModificationTrackedModel {
 
   @OneToMany(() => Expense, (expense) => expense.creditCard)
   expenses: Expense[];
+
+  constructor(partial: Partial<CreditCard>) {
+    super();
+    Object.assign(this, partial);
+  }
 }

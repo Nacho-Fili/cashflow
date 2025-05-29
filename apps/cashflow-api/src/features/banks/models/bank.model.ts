@@ -1,10 +1,10 @@
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { ModificationTrackedModel } from '../../../shared/entities/modification-tracked.model';
 import { CreditCard } from '../../credit-cards/models/credit-card.model';
 import { Loan } from '../../loans/models/loan.model';
 import { Balance } from '../../balances/models/balance.model';
 
-@Entity()
+@Entity('banks')
 export class Bank extends ModificationTrackedModel {
   @Column()
   name: string;
@@ -18,6 +18,6 @@ export class Bank extends ModificationTrackedModel {
   @OneToMany(() => Loan, (loan) => loan.bank)
   loans: Loan[];
 
-  @OneToOne(() => Balance)
+  @OneToMany(() => Balance, (balance) => balance.bank)
   balances: Balance[];
 }

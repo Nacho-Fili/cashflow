@@ -3,6 +3,7 @@ import { Income } from '../models/income.model';
 import { IncomeDto } from '../dtos/income.dto';
 import { CreateIncomeDto } from '../dtos/create-income.dto';
 import { UpdateIncomeDto } from '../dtos/update-income.dto';
+import { Balance } from '../../balances/models/balance.model';
 
 @Injectable()
 export class IncomeMapper {
@@ -13,7 +14,13 @@ export class IncomeMapper {
     income.date = createIncomeDto.date;
     income.sourceId = createIncomeDto.sourceId;
     income.isRecurring = createIncomeDto.isRecurring ?? false;
-    income.currencyId = createIncomeDto.currencyId;
+    if (createIncomeDto.currencyId) {
+      // Asume que hay una relación ManyToOne con Currency
+      income.currency = { id: createIncomeDto.currencyId } as any;
+    }
+    if (createIncomeDto.balanceId) {
+      income.balance = new Balance({ id: createIncomeDto.balanceId });
+    }
     return income;
   }
 
@@ -25,7 +32,8 @@ export class IncomeMapper {
     incomeDto.date = income.date;
     incomeDto.sourceId = income.sourceId;
     incomeDto.isRecurring = income.isRecurring;
-    incomeDto.currencyId = income.currencyId;
+    incomeDto.currencyId = income.currency?.id;
+    incomeDto.balanceId = income.balance?.id;
     incomeDto.createdAt = income.createdAt;
     incomeDto.updatedAt = income.updatedAt;
     return incomeDto;
@@ -51,7 +59,10 @@ export class IncomeMapper {
       income.isRecurring = updateIncomeDto.isRecurring;
     }
     if (updateIncomeDto.currencyId !== undefined) {
-      income.currencyId = updateIncomeDto.currencyId;
+      income.currency = { id: updateIncomeDto.currencyId } as any;
+    }
+    if (updateIncomeDto.balanceId !== undefined) {
+      income.balance = new Balance({ id: updateIncomeDto.balanceId });
     }
     return income;
   }

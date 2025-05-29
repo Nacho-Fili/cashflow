@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { ModificationTrackedModel } from '../../../shared/entities/modification-tracked.model';
 import { Category } from '../../categories/models/category.model';
 import { CreditCard } from '../../credit-cards/models/credit-card.model';
-import { Balance } from '../../balances/balance.model';
+import { Balance } from '../../balances/models/balance.model';
 import { Currency } from '../../currencies/models/currency.model';
 
 export enum ExpenseType {
@@ -11,7 +11,7 @@ export enum ExpenseType {
   SUBSCRIPTION = 'SUBSCRIPTION',
 }
 
-@Entity()
+@Entity('expenses')
 export class Expense extends ModificationTrackedModel {
   @Column()
   description: string;
@@ -57,16 +57,16 @@ export class Expense extends ModificationTrackedModel {
 
   // Fields for installment type expenses
   @Column({ nullable: true, type: 'int' })
-  totalInstallments: number;
+  totalInstallments: number | null;
 
   @Column({ nullable: true, type: 'int' })
-  currentInstallment: number;
+  currentInstallment: number | null;
 
   @Column({ nullable: true, type: 'date' })
-  startDate: Date;
+  startDate: Date | null;
 
   @Column({ nullable: true, type: 'date' })
-  endDate: Date;
+  endDate: Date | null;
 
   // Field for subscription type expenses
   @Column({ nullable: true, default: false })

@@ -3,7 +3,7 @@ import { ModificationTrackedModel } from '../../../shared/entities/modification-
 import { Budget } from '../../budgets/models/budget.model';
 import { Expense } from '../../expenses/models/expense.model';
 
-@Entity()
+@Entity('categories')
 export class Category extends ModificationTrackedModel {
   @Column()
   name: string;

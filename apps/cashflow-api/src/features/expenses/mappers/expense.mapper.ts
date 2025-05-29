@@ -3,6 +3,8 @@ import { Expense, ExpenseType } from '../models/expense.model';
 import { ExpenseDto } from '../dtos/expense.dto';
 import { CreateExpenseDto } from '../dtos/create-expense.dto';
 import { UpdateExpenseDto } from '../dtos/update-expense.dto';
+import { CreditCard } from '../../credit-cards/models/credit-card.model';
+import { Balance } from '../../balances/models/balance.model';
 
 @Injectable()
 export class ExpenseMapper {
@@ -12,15 +14,24 @@ export class ExpenseMapper {
     expense.amount = createExpenseDto.amount;
     expense.type = createExpenseDto.type;
     expense.date = createExpenseDto.date;
-    expense.creditCardId = createExpenseDto.creditCardId;
+    if (createExpenseDto.creditCardId) {
+      expense.creditCard = new CreditCard({ id: createExpenseDto.creditCardId });
+    }
+    if (createExpenseDto.balanceId) {
+      expense.balance = new Balance({ id: createExpenseDto.balanceId });
+    }
     expense.categoryId = createExpenseDto.categoryId;
 
     // Set fields based on expense type
     if (expense.type === ExpenseType.INSTALLMENT) {
-      expense.totalInstallments = createExpenseDto.totalInstallments;
+      if (createExpenseDto.totalInstallments) {
+        expense.totalInstallments = createExpenseDto.totalInstallments;
+      }
       expense.currentInstallment = createExpenseDto.currentInstallment || 1;
       expense.startDate = createExpenseDto.startDate || expense.date;
-      expense.endDate = createExpenseDto.endDate;
+      if (createExpenseDto.endDate) {
+        expense.endDate = createExpenseDto.endDate;
+      }
     } else if (expense.type === ExpenseType.SUBSCRIPTION) {
       expense.isRecurring = true;
       expense.startDate = createExpenseDto.startDate || expense.date;
@@ -38,7 +49,8 @@ export class ExpenseMapper {
     expenseDto.amount = expense.amount;
     expenseDto.type = expense.type;
     expenseDto.date = expense.date;
-    expenseDto.creditCardId = expense.creditCardId;
+    expenseDto.creditCardId = expense.creditCard?.id;
+    expenseDto.balanceId = expense.balance?.id;
     expenseDto.categoryId = expense.categoryId;
     expenseDto.totalInstallments = expense.totalInstallments;
     expenseDto.currentInstallment = expense.currentInstallment;
@@ -64,7 +76,7 @@ export class ExpenseMapper {
       expense.date = updateExpenseDto.date;
     }
     if (updateExpenseDto.creditCardId !== undefined) {
-      expense.creditCardId = updateExpenseDto.creditCardId;
+      expense.creditCard = new CreditCard({ id: updateExpenseDto.creditCardId });
     }
     if (updateExpenseDto.categoryId !== undefined) {
       expense.categoryId = updateExpenseDto.categoryId;
@@ -80,10 +92,14 @@ export class ExpenseMapper {
       // Reset type-specific fields when changing type
       if (expense.type === ExpenseType.INSTALLMENT) {
         expense.isRecurring = false;
-        expense.totalInstallments = updateExpenseDto.totalInstallments;
-        expense.currentInstallment = updateExpenseDto.currentInstallment || 1;
+        if (updateExpenseDto.totalInstallments) {
+          expense.totalInstallments = updateExpenseDto.totalInstallments
+        };
+        expense.currentInstallment = updateExpenseDto.currentInstallment ?? 1;
         expense.startDate = updateExpenseDto.startDate || expense.date;
-        expense.endDate = updateExpenseDto.endDate;
+        if (updateExpenseDto.endDate) {
+          expense.endDate = updateExpenseDto.endDate;
+        }
       } else if (expense.type === ExpenseType.SUBSCRIPTION) {
         expense.isRecurring = true;
         expense.totalInstallments = null;

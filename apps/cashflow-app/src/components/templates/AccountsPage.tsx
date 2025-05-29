@@ -2,12 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import {
-  Box, chakra, SimpleGrid, Text, Button, useDisclosure,
+  Box, chakra, SimpleGrid, Text, Button, Input, useDisclosure,
+  Dialog,
+  Field
 } from '@chakra-ui/react';
 import { AccountCard, AccountCardProps } from '../organisms/AccountCard';
-import { CashflowApiService } from '@cashflow/shared';
-import { LandmarkIcon, CreditCardIcon, PiggyBankIcon, BriefcaseIcon } from 'lucide-react';
-import { AddBankModal } from '../molecules/AddBankModal';
+import { CashflowApiService, IBankDto, IBalanceDto } from '@cashflow/shared'; // Assuming IBalanceDto is available
+import { LandmarkIcon, CreditCardIcon, PiggyBankIcon, BriefcaseIcon } from 'lucide-react'; // Example icons
 
 // Helper function to map account types to icons (example)
 const getAccountIcon = (accountType?: string) => {
@@ -26,7 +27,9 @@ const getAccountIcon = (accountType?: string) => {
 };
 
 export function AccountsPage() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onClose } = useDisclosure();
+  const [newBankName, setNewBankName] = useState('');
+  const [newBankDesc, setNewBankDesc] = useState('');
   const [accounts, setAccounts] = useState<AccountCardProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,20 +41,20 @@ export function AccountsPage() {
     try {
       setLoading(true);
       const banks = await api.getBanks();
-      const accountsList = banks.map(bank => ({
-        accountId: bank.id,
-        accountName: bank.name,
-        accountType: bank.description || 'Cuenta Bancaria',
-        icon: getAccountIcon(bank.description),
-        balances: bank.balances 
-          ? bank.balances.map(b => ({ 
-              amount: b.amount, 
-              currencySymbol: b.currency.symbol, 
-              currencyCode: b.currency.code 
-            })) 
-          : [],
-      }));
-      setAccounts(accountsList);
+      const accountPromises = banks.map(async bank => {
+        let balances = [];
+        try {
+          balances = await api.getBalances(bank.id);
+        } catch {};
+        return {
+          accountId: bank.id,
+          accountName: bank.name,
+          accountType: bank.description || 'Cuenta Bancaria',
+          icon: getAccountIcon(bank.description),
+          balances: balances.map(b => ({ amount: b.amount, currencySymbol: b.currency.symbol, currencyCode: b.currency.code })),
+        };
+      });
+      setAccounts(await Promise.all(accountPromises));
       setError(null);
     } catch (e) {
       setError('Error al cargar las cuentas. Intente nuevamente.');

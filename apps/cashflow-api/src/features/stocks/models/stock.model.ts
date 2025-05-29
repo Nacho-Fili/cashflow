@@ -3,7 +3,7 @@ import { ModificationTrackedModel } from '../../../shared/entities/modification-
 import { InvestmentAccount } from '../../investments/models/investment-account.model';
 import { Currency } from '../../currencies/models/currency.model';
 
-@Entity()
+@Entity('stocks')
 export class Stock extends ModificationTrackedModel {
   @Column()
   symbol: string;

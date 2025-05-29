@@ -73,7 +73,7 @@ export class CreditCardsService {
 
   async findByBank(bankId: string): Promise<CreditCardDto[]> {
     const creditCards = await this.creditCardRepository.find({
-      where: { bankId },
+      where: { bank: { id: bankId } },
       relations: ['bank'],
     });
     return creditCards.map((card) => this.creditCardMapper.toDto(card));
