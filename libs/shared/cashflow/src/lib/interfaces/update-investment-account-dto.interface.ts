@@ -1,3 +1,3 @@
-import { ICreateInvestmentAccountDto } from './create-investment-account-dto.interface';
+import { ICreateInvestmentAccountDto } from './create-investment-account-dto.interface.js';
 
 export type IUpdateInvestmentAccountDto = Partial<ICreateInvestmentAccountDto>;

@@ -1,54 +1,54 @@
 import axios, { AxiosError } from "axios";
-import { ICreateBankDto } from "../interfaces/create-bank-dto.interface";
-import { IBankDto } from "../interfaces/bank-dto.interface";
-import { IUpdateBankDto } from "../interfaces/update-bank-dto.interface";
-import { IBalanceDto } from "../interfaces/balance-dto.interface";
-import { ICreateBalanceDto } from "../interfaces/create-balance-dto.interface";
-import { ILoanDto } from "../interfaces/loan-dto.interface";
-import { ICreateLoanDto } from "../interfaces/create-loan-dto.interface";
-import { IUpdateLoanDto } from "../interfaces/update-loan-dto.interface";
-import { IInvestmentAccountDto } from "../interfaces/investment-account-dto.interface";
-import { ICreateInvestmentAccountDto } from "../interfaces/create-investment-account-dto.interface";
-import { IUpdateInvestmentAccountDto } from "../interfaces/update-investment-account-dto.interface";
-import { IStockDto } from "../interfaces/stock-dto.interface";
-import { ICreateStockDto } from "../interfaces/create-stock-dto.interface";
-import { IUpdateStockDto } from "../interfaces/update-stock-dto.interface";
-import { IIncomeDto } from "../interfaces/income-dto.interface";
-import { ICreateIncomeDto } from "../interfaces/create-income-dto.interface";
-import { IUpdateIncomeDto } from "../interfaces/update-income-dto.interface";
-import { IIncomeSourceDto } from "../interfaces/income-source-dto.interface";
-import { ICreateIncomeSourceDto } from "../interfaces/create-income-source-dto.interface";
-import { IUpdateIncomeSourceDto } from "../interfaces/update-income-source-dto.interface";
-import { IExpenseDto } from "../interfaces/expense-dto.interface";
-import { ICreateExpenseDto } from "../interfaces/create-expense-dto.interface";
-import { IUpdateExpenseDto } from "../interfaces/update-expense-dto.interface";
-import { ICategoryDto } from "../interfaces/category-dto.interface";
-import { ICreateCategoryDto } from "../interfaces/create-category-dto.interface";
-import { IUpdateCategoryDto } from "../interfaces/update-category-dto.interface";
-import { ICreditCardDto } from "../interfaces/credit-card-dto.interface";
-import { ICreateCreditCardDto } from "../interfaces/create-credit-card-dto.interface";
-import { IUpdateCreditCardDto } from "../interfaces/update-credit-card-dto.interface";
-import { ICurrencyDto } from "../interfaces/currency-dto.interface";
-import { ICreateCurrencyDto } from "../interfaces/create-currency-dto.interface";
-import { IUpdateCurrencyDto } from "../interfaces/update-currency-dto.interface";
-import { IBudgetDto } from "../interfaces/budget-dto.interface";
-import { ICreateBudgetDto } from "../interfaces/create-budget-dto.interface";
-import { IUpdateBudgetDto } from "../interfaces/update-budget-dto.interface";
+import { ICreateBankDto } from "../interfaces/create-bank-dto.interface.js";
+import { IBankDto } from "../interfaces/bank-dto.interface.js";
+import { IUpdateBankDto } from "../interfaces/update-bank-dto.interface.js";
+import { IBalanceDto } from "../interfaces/balance-dto.interface.js";
+import { ICreateBalanceDto } from "../interfaces/create-balance-dto.interface.js";
+import { ILoanDto } from "../interfaces/loan-dto.interface.js";
+import { ICreateLoanDto } from "../interfaces/create-loan-dto.interface.js";
+import { IUpdateLoanDto } from "../interfaces/update-loan-dto.interface.js";
+import { IInvestmentAccountDto } from "../interfaces/investment-account-dto.interface.js";
+import { ICreateInvestmentAccountDto } from "../interfaces/create-investment-account-dto.interface.js";
+import { IUpdateInvestmentAccountDto } from "../interfaces/update-investment-account-dto.interface.js";
+import { IStockDto } from "../interfaces/stock-dto.interface.js";
+import { ICreateStockDto } from "../interfaces/create-stock-dto.interface.js";
+import { IUpdateStockDto } from "../interfaces/update-stock-dto.interface.js";
+import { IIncomeDto } from "../interfaces/income-dto.interface.js";
+import { ICreateIncomeDto } from "../interfaces/create-income-dto.interface.js";
+import { IUpdateIncomeDto } from "../interfaces/update-income-dto.interface.js";
+import { IIncomeSourceDto } from "../interfaces/income-source-dto.interface.js";
+import { ICreateIncomeSourceDto } from "../interfaces/create-income-source-dto.interface.js";
+import { IUpdateIncomeSourceDto } from "../interfaces/update-income-source-dto.interface.js";
+import { IExpenseDto } from "../interfaces/expense-dto.interface.js";
+import { ICreateExpenseDto } from "../interfaces/create-expense-dto.interface.js";
+import { IUpdateExpenseDto } from "../interfaces/update-expense-dto.interface.js";
+import { ICategoryDto } from "../interfaces/category-dto.interface.js";
+import { ICreateCategoryDto } from "../interfaces/create-category-dto.interface.js";
+import { IUpdateCategoryDto } from "../interfaces/update-category-dto.interface.js";
+import { ICreditCardDto } from "../interfaces/credit-card-dto.interface.js";
+import { ICreateCreditCardDto } from "../interfaces/create-credit-card-dto.interface.js";
+import { IUpdateCreditCardDto } from "../interfaces/update-credit-card-dto.interface.js";
+import { ICurrencyDto } from "../interfaces/currency-dto.interface.js";
+import { ICreateCurrencyDto } from "../interfaces/create-currency-dto.interface.js";
+import { IUpdateCurrencyDto } from "../interfaces/update-currency-dto.interface.js";
+import { IBudgetDto } from "../interfaces/budget-dto.interface.js";
+import { ICreateBudgetDto } from "../interfaces/create-budget-dto.interface.js";
+import { IUpdateBudgetDto } from "../interfaces/update-budget-dto.interface.js";
 
 export interface ApiError {
-  status: number;
-  message: string;
-  details?: unknown;
+    status: number;
+    message: string;
+    details?: unknown;
 }
 
 export interface DateRange {
-  startDate: Date;
-  endDate: Date;
+    startDate: Date;
+    endDate: Date;
 }
 
 export enum ExpenseType {
-  RECURRING = 'RECURRING',
-  ONE_TIME = 'ONE_TIME',
+    RECURRING = 'RECURRING',
+    ONE_TIME = 'ONE_TIME',
 }
 
 export class CashflowApiService {
@@ -79,37 +79,37 @@ export class CashflowApiService {
 
     // Banks endpoints
     async getBanks(): Promise<IBankDto[]> {
-        return this.apiCall<IBankDto[]>(() => 
+        return this.apiCall<IBankDto[]>(() =>
             axios.get(`${this.apiUrl}/banks`)
         );
     }
 
     async getBank(id: string): Promise<IBankDto> {
-        return this.apiCall<IBankDto>(() => 
+        return this.apiCall<IBankDto>(() =>
             axios.get(`${this.apiUrl}/banks/${id}`)
         );
     }
 
     async createBank(createBankDto: ICreateBankDto): Promise<IBankDto> {
-        return this.apiCall<IBankDto>(() => 
+        return this.apiCall<IBankDto>(() =>
             axios.post(`${this.apiUrl}/banks`, createBankDto)
         );
     }
 
     async updateBank(id: string, updateBankDto: IUpdateBankDto): Promise<IBankDto> {
-        return this.apiCall<IBankDto>(() => 
+        return this.apiCall<IBankDto>(() =>
             axios.patch(`${this.apiUrl}/banks/${id}`, updateBankDto)
         );
     }
 
     async deleteBank(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/banks/${id}`)
         );
     }
 
     async createBankBalance(bankId: string, createBalanceDto: ICreateBalanceDto): Promise<IBalanceDto> {
-        return this.apiCall<IBalanceDto>(() => 
+        return this.apiCall<IBalanceDto>(() =>
             axios.post(`${this.apiUrl}/banks/${bankId}/balances`, createBalanceDto)
         );
     }
@@ -121,62 +121,62 @@ export class CashflowApiService {
     }
 
     async getLoan(id: string): Promise<ILoanDto> {
-        return this.apiCall<ILoanDto>(() => 
+        return this.apiCall<ILoanDto>(() =>
             axios.get(`${this.apiUrl}/loans/${id}`)
         );
     }
 
     async createLoan(createLoanDto: ICreateLoanDto): Promise<ILoanDto> {
-        return this.apiCall<ILoanDto>(() => 
+        return this.apiCall<ILoanDto>(() =>
             axios.post(`${this.apiUrl}/loans`, createLoanDto)
         );
     }
 
     async updateLoan(id: string, updateLoanDto: IUpdateLoanDto): Promise<ILoanDto> {
-        return this.apiCall<ILoanDto>(() => 
+        return this.apiCall<ILoanDto>(() =>
             axios.patch(`${this.apiUrl}/loans/${id}`, updateLoanDto)
         );
     }
 
     async updateLoanRemainingAmount(id: string, remainingAmount: number): Promise<ILoanDto> {
-        return this.apiCall<ILoanDto>(() => 
+        return this.apiCall<ILoanDto>(() =>
             axios.patch(`${this.apiUrl}/loans/${id}/remaining`, { remainingAmount })
         );
     }
 
     async deleteLoan(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/loans/${id}`)
         );
     }
 
     // Investments endpoints
     async getInvestmentAccounts(): Promise<IInvestmentAccountDto[]> {
-        return this.apiCall<IInvestmentAccountDto[]>(() => 
+        return this.apiCall<IInvestmentAccountDto[]>(() =>
             axios.get(`${this.apiUrl}/investments`)
         );
     }
 
     async getInvestmentAccount(id: string): Promise<IInvestmentAccountDto> {
-        return this.apiCall<IInvestmentAccountDto>(() => 
+        return this.apiCall<IInvestmentAccountDto>(() =>
             axios.get(`${this.apiUrl}/investments/${id}`)
         );
     }
 
     async createInvestmentAccount(createDto: ICreateInvestmentAccountDto): Promise<IInvestmentAccountDto> {
-        return this.apiCall<IInvestmentAccountDto>(() => 
+        return this.apiCall<IInvestmentAccountDto>(() =>
             axios.post(`${this.apiUrl}/investments`, createDto)
         );
     }
 
     async updateInvestmentAccount(id: string, updateDto: IUpdateInvestmentAccountDto): Promise<IInvestmentAccountDto> {
-        return this.apiCall<IInvestmentAccountDto>(() => 
+        return this.apiCall<IInvestmentAccountDto>(() =>
             axios.patch(`${this.apiUrl}/investments/${id}`, updateDto)
         );
     }
 
     async deleteInvestmentAccount(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/investments/${id}`)
         );
     }
@@ -188,45 +188,45 @@ export class CashflowApiService {
     }
 
     async getStock(id: string): Promise<IStockDto> {
-        return this.apiCall<IStockDto>(() => 
+        return this.apiCall<IStockDto>(() =>
             axios.get(`${this.apiUrl}/stocks/${id}`)
         );
     }
 
     async createStock(createStockDto: ICreateStockDto): Promise<IStockDto> {
-        return this.apiCall<IStockDto>(() => 
+        return this.apiCall<IStockDto>(() =>
             axios.post(`${this.apiUrl}/stocks`, createStockDto)
         );
     }
 
     async updateStock(id: string, updateStockDto: IUpdateStockDto): Promise<IStockDto> {
-        return this.apiCall<IStockDto>(() => 
+        return this.apiCall<IStockDto>(() =>
             axios.patch(`${this.apiUrl}/stocks/${id}`, updateStockDto)
         );
     }
 
     async updateStockPrice(id: string, currentPrice: number): Promise<IStockDto> {
-        return this.apiCall<IStockDto>(() => 
+        return this.apiCall<IStockDto>(() =>
             axios.patch(`${this.apiUrl}/stocks/${id}/price`, { currentPrice })
         );
     }
 
     async deleteStock(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/stocks/${id}`)
         );
     }
 
     // Incomes endpoints
-    async getIncomes(options?: { 
-        sourceId?: string; 
-        recurring?: boolean; 
-        startDate?: Date; 
+    async getIncomes(options?: {
+        sourceId?: string;
+        recurring?: boolean;
+        startDate?: Date;
         endDate?: Date;
     }): Promise<IIncomeDto[]> {
         let url = `${this.apiUrl}/incomes`;
         const params = new URLSearchParams();
-        
+
         if (options) {
             if (options.sourceId) params.append('sourceId', options.sourceId);
             if (options.recurring !== undefined) params.append('recurring', options.recurring.toString());
@@ -237,7 +237,7 @@ export class CashflowApiService {
         if (params.toString()) {
             url += `?${params.toString()}`;
         }
-        
+
         return this.apiCall<IIncomeDto[]>(() => axios.get(url));
     }
 
@@ -260,71 +260,71 @@ export class CashflowApiService {
     }
 
     async getIncome(id: string): Promise<IIncomeDto> {
-        return this.apiCall<IIncomeDto>(() => 
+        return this.apiCall<IIncomeDto>(() =>
             axios.get(`${this.apiUrl}/incomes/${id}`)
         );
     }
 
     async createIncome(createIncomeDto: ICreateIncomeDto): Promise<IIncomeDto> {
-        return this.apiCall<IIncomeDto>(() => 
+        return this.apiCall<IIncomeDto>(() =>
             axios.post(`${this.apiUrl}/incomes`, createIncomeDto)
         );
     }
 
     async updateIncome(id: string, updateIncomeDto: IUpdateIncomeDto): Promise<IIncomeDto> {
-        return this.apiCall<IIncomeDto>(() => 
+        return this.apiCall<IIncomeDto>(() =>
             axios.patch(`${this.apiUrl}/incomes/${id}`, updateIncomeDto)
         );
     }
 
     async deleteIncome(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/incomes/${id}`)
         );
     }
 
     // Income Sources endpoints
     async getIncomeSources(): Promise<IIncomeSourceDto[]> {
-        return this.apiCall<IIncomeSourceDto[]>(() => 
+        return this.apiCall<IIncomeSourceDto[]>(() =>
             axios.get(`${this.apiUrl}/income-sources`)
         );
     }
 
     async getIncomeSource(id: string): Promise<IIncomeSourceDto> {
-        return this.apiCall<IIncomeSourceDto>(() => 
+        return this.apiCall<IIncomeSourceDto>(() =>
             axios.get(`${this.apiUrl}/income-sources/${id}`)
         );
     }
 
     async createIncomeSource(createSourceDto: ICreateIncomeSourceDto): Promise<IIncomeSourceDto> {
-        return this.apiCall<IIncomeSourceDto>(() => 
+        return this.apiCall<IIncomeSourceDto>(() =>
             axios.post(`${this.apiUrl}/income-sources`, createSourceDto)
         );
     }
 
     async updateIncomeSource(id: string, updateSourceDto: IUpdateIncomeSourceDto): Promise<IIncomeSourceDto> {
-        return this.apiCall<IIncomeSourceDto>(() => 
+        return this.apiCall<IIncomeSourceDto>(() =>
             axios.patch(`${this.apiUrl}/income-sources/${id}`, updateSourceDto)
         );
     }
 
     async deleteIncomeSource(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/income-sources/${id}`)
         );
     }
 
     // Expenses endpoints
-    async getExpenses(options?: { 
-        categoryId?: string; 
-        creditCardId?: string; 
-        type?: ExpenseType | string; 
-        startDate?: Date; 
+    async getExpenses(options?: {
+        categoryId?: string;
+        creditCardId?: string;
+        type?: ExpenseType | string;
+        startDate?: Date;
         endDate?: Date;
     }): Promise<IExpenseDto[]> {
         let url = `${this.apiUrl}/expenses`;
         const params = new URLSearchParams();
-        
+
         if (options) {
             if (options.categoryId) params.append('categoryId', options.categoryId);
             if (options.creditCardId) params.append('creditCardId', options.creditCardId);
@@ -336,7 +336,7 @@ export class CashflowApiService {
         if (params.toString()) {
             url += `?${params.toString()}`;
         }
-        
+
         return this.apiCall<IExpenseDto[]>(() => axios.get(url));
     }
 
@@ -364,56 +364,56 @@ export class CashflowApiService {
     }
 
     async getExpense(id: string): Promise<IExpenseDto> {
-        return this.apiCall<IExpenseDto>(() => 
+        return this.apiCall<IExpenseDto>(() =>
             axios.get(`${this.apiUrl}/expenses/${id}`)
         );
     }
 
     async createExpense(createExpenseDto: ICreateExpenseDto): Promise<IExpenseDto> {
-        return this.apiCall<IExpenseDto>(() => 
+        return this.apiCall<IExpenseDto>(() =>
             axios.post(`${this.apiUrl}/expenses`, createExpenseDto)
         );
     }
 
     async updateExpense(id: string, updateExpenseDto: IUpdateExpenseDto): Promise<IExpenseDto> {
-        return this.apiCall<IExpenseDto>(() => 
+        return this.apiCall<IExpenseDto>(() =>
             axios.patch(`${this.apiUrl}/expenses/${id}`, updateExpenseDto)
         );
     }
 
     async deleteExpense(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/expenses/${id}`)
         );
     }
 
     // Categories endpoints
     async getCategories(): Promise<ICategoryDto[]> {
-        return this.apiCall<ICategoryDto[]>(() => 
+        return this.apiCall<ICategoryDto[]>(() =>
             axios.get(`${this.apiUrl}/categories`)
         );
     }
 
     async getCategory(id: string): Promise<ICategoryDto> {
-        return this.apiCall<ICategoryDto>(() => 
+        return this.apiCall<ICategoryDto>(() =>
             axios.get(`${this.apiUrl}/categories/${id}`)
         );
     }
 
     async createCategory(createCategoryDto: ICreateCategoryDto): Promise<ICategoryDto> {
-        return this.apiCall<ICategoryDto>(() => 
+        return this.apiCall<ICategoryDto>(() =>
             axios.post(`${this.apiUrl}/categories`, createCategoryDto)
         );
     }
 
     async updateCategory(id: string, updateCategoryDto: IUpdateCategoryDto): Promise<ICategoryDto> {
-        return this.apiCall<ICategoryDto>(() => 
+        return this.apiCall<ICategoryDto>(() =>
             axios.patch(`${this.apiUrl}/categories/${id}`, updateCategoryDto)
         );
     }
 
     async deleteCategory(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/categories/${id}`)
         );
     }
@@ -429,62 +429,62 @@ export class CashflowApiService {
     }
 
     async getCreditCard(id: string): Promise<ICreditCardDto> {
-        return this.apiCall<ICreditCardDto>(() => 
+        return this.apiCall<ICreditCardDto>(() =>
             axios.get(`${this.apiUrl}/credit-cards/${id}`)
         );
     }
 
     async createCreditCard(createCardDto: ICreateCreditCardDto): Promise<ICreditCardDto> {
-        return this.apiCall<ICreditCardDto>(() => 
+        return this.apiCall<ICreditCardDto>(() =>
             axios.post(`${this.apiUrl}/credit-cards`, createCardDto)
         );
     }
 
     async updateCreditCard(id: string, updateCardDto: IUpdateCreditCardDto): Promise<ICreditCardDto> {
-        return this.apiCall<ICreditCardDto>(() => 
+        return this.apiCall<ICreditCardDto>(() =>
             axios.patch(`${this.apiUrl}/credit-cards/${id}`, updateCardDto)
         );
     }
 
     async deleteCreditCard(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/credit-cards/${id}`)
         );
     }
 
     // Currencies endpoints
     async getCurrencies(): Promise<ICurrencyDto[]> {
-        return this.apiCall<ICurrencyDto[]>(() => 
+        return this.apiCall<ICurrencyDto[]>(() =>
             axios.get(`${this.apiUrl}/currencies`)
         );
     }
 
     async getCurrencyByCode(code: string): Promise<ICurrencyDto> {
-        return this.apiCall<ICurrencyDto>(() => 
+        return this.apiCall<ICurrencyDto>(() =>
             axios.get(`${this.apiUrl}/currencies/code/${code}`)
         );
     }
 
     async getCurrency(id: string): Promise<ICurrencyDto> {
-        return this.apiCall<ICurrencyDto>(() => 
+        return this.apiCall<ICurrencyDto>(() =>
             axios.get(`${this.apiUrl}/currencies/${id}`)
         );
     }
 
     async createCurrency(createCurrencyDto: ICreateCurrencyDto): Promise<ICurrencyDto> {
-        return this.apiCall<ICurrencyDto>(() => 
+        return this.apiCall<ICurrencyDto>(() =>
             axios.post(`${this.apiUrl}/currencies`, createCurrencyDto)
         );
     }
 
     async updateCurrency(id: string, updateCurrencyDto: IUpdateCurrencyDto): Promise<ICurrencyDto> {
-        return this.apiCall<ICurrencyDto>(() => 
+        return this.apiCall<ICurrencyDto>(() =>
             axios.patch(`${this.apiUrl}/currencies/${id}`, updateCurrencyDto)
         );
     }
 
     async deleteCurrency(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/currencies/${id}`)
         );
     }
@@ -493,7 +493,7 @@ export class CashflowApiService {
     async getBudgets(options?: { categoryId?: string; month?: string }): Promise<IBudgetDto[]> {
         let url = `${this.apiUrl}/budgets`;
         const params = new URLSearchParams();
-        
+
         if (options) {
             if (options.categoryId) params.append('categoryId', options.categoryId);
             if (options.month) params.append('month', options.month);
@@ -502,7 +502,7 @@ export class CashflowApiService {
         if (params.toString()) {
             url += `?${params.toString()}`;
         }
-        
+
         return this.apiCall<IBudgetDto[]>(() => axios.get(url));
     }
 
@@ -517,25 +517,25 @@ export class CashflowApiService {
     }
 
     async getBudget(id: string): Promise<IBudgetDto> {
-        return this.apiCall<IBudgetDto>(() => 
+        return this.apiCall<IBudgetDto>(() =>
             axios.get(`${this.apiUrl}/budgets/${id}`)
         );
     }
 
     async createBudget(createBudgetDto: ICreateBudgetDto): Promise<IBudgetDto> {
-        return this.apiCall<IBudgetDto>(() => 
+        return this.apiCall<IBudgetDto>(() =>
             axios.post(`${this.apiUrl}/budgets`, createBudgetDto)
         );
     }
 
     async updateBudget(id: string, updateBudgetDto: IUpdateBudgetDto): Promise<IBudgetDto> {
-        return this.apiCall<IBudgetDto>(() => 
+        return this.apiCall<IBudgetDto>(() =>
             axios.patch(`${this.apiUrl}/budgets/${id}`, updateBudgetDto)
         );
     }
 
     async deleteBudget(id: string): Promise<void> {
-        return this.apiCall<void>(() => 
+        return this.apiCall<void>(() =>
             axios.delete(`${this.apiUrl}/budgets/${id}`)
         );
     }

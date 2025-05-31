@@ -1,4 +1,4 @@
-import { IBalanceDto } from './balance-dto.interface';
+import { IBalanceDto } from './balance-dto.interface.js';
 
 export interface IBankDto {
   id: string;
