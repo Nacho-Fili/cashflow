@@ -1,36 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { CreditCard } from '../models/credit-card.model';
-import { CreditCardDto } from '../dtos/credit-card.dto';
 import { CreateCreditCardDto } from '../dtos/create-credit-card.dto';
 import { UpdateCreditCardDto } from '../dtos/update-credit-card.dto';
+import { CreditCardPeriodSummaryDto, CreditCardPeriodDto } from '../dtos/credit-card-period.dto';
+import { Bank } from '../../banks/models/bank.model';
+import { CreditCardDto } from '../dtos/credit-card.dto';
 
 @Injectable()
 export class CreditCardMapper {
   toEntity(createCreditCardDto: CreateCreditCardDto): CreditCard {
-    const creditCard = new CreditCard();
+    const creditCard = new CreditCard({});
     creditCard.name = createCreditCardDto.name;
     creditCard.lastFourDigits = createCreditCardDto.lastFourDigits;
-    creditCard.bankId = createCreditCardDto.bankId;
+    creditCard.bank = new Bank({ id: createCreditCardDto.bankId });
     creditCard.creditLimit = createCreditCardDto.creditLimit;
-    creditCard.cardType = createCreditCardDto.cardType;
-    creditCard.closingDay = createCreditCardDto.closingDay;
-    creditCard.dueDay = createCreditCardDto.dueDay;
     return creditCard;
   }
 
-  toDto(creditCard: CreditCard): CreditCardDto {
-    const creditCardDto = new CreditCardDto();
-    creditCardDto.id = creditCard.id;
-    creditCardDto.name = creditCard.name;
-    creditCardDto.lastFourDigits = creditCard.lastFourDigits;
-    creditCardDto.bankId = creditCard.bankId;
-    creditCardDto.creditLimit = creditCard.creditLimit;
-    creditCardDto.cardType = creditCard.cardType;
-    creditCardDto.closingDay = creditCard.closingDay;
-    creditCardDto.dueDay = creditCard.dueDay;
-    creditCardDto.createdAt = creditCard.createdAt;
-    creditCardDto.updatedAt = creditCard.updatedAt;
-    return creditCardDto;
+  toDto(card: CreditCard, summary: boolean = false): any {
+    const dto: any = {
+      id: card.id,
+      name: card.name,
+      lastFourDigits: card.lastFourDigits,
+      creditLimit: card.creditLimit,
+      bankId: card.bank?.id,
+    };
+    if (card.periods) {
+      if (summary) {
+        dto.periods = card.periods.map(period => ({
+          id: period.id,
+          closingDate: period.closingDate,
+          dueDate: period.dueDate,
+          amount: (period.expenses || []).reduce((sum, e) => sum + Number(e.amount), 0)
+        }) as CreditCardPeriodSummaryDto);
+      } else {
+        dto.periods = card.periods.map(period => ({
+          id: period.id,
+          closingDate: period.closingDate,
+          dueDate: period.dueDate,
+          creditCardId: period.creditCard?.id,
+          expenses: period.expenses || []
+        }) as CreditCardPeriodDto);
+      }
+    }
+    return dto as CreditCardDto;
   }
 
   updateEntityFromDto(

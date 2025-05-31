@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { ModificationTrackedModel } from '../../../shared/entities/modification-tracked.model';
 import { Category } from '../../categories/models/category.model';
-import { CreditCard } from '../../credit-cards/models/credit-card.model';
+import { CreditCardPeriod } from '../../credit-cards/models/credit-card-period.model';
 import { Balance } from '../../balances/models/balance.model';
 import { Currency } from '../../currencies/models/currency.model';
 
@@ -19,7 +19,7 @@ export class Expense extends ModificationTrackedModel {
   @Column({ type: 'decimal', precision: 15, scale: 2 })
   amount: number;
 
-  @JoinColumn({ name: 'currency_id' })
+  @JoinColumn({ name: 'currency_id', foreignKeyConstraintName: 'fk_expense_currency' })
   @ManyToOne(() => Currency)
   currency: Currency;
 
@@ -36,14 +36,9 @@ export class Expense extends ModificationTrackedModel {
   })
   balance?: Balance;
 
-  @ManyToOne(() => CreditCard, (creditCard) => creditCard.expenses, {
-    nullable: true,
-  })
-  @JoinColumn({
-    name: 'credit_card_id',
-    foreignKeyConstraintName: 'fk_expense_credit_card',
-  })
-  creditCard?: CreditCard;
+  @ManyToOne(() => CreditCardPeriod, (period) => period.expenses, { nullable: true })
+  @JoinColumn({ name: 'credit_card_period_id', foreignKeyConstraintName: 'fk_expense_credit_card_period' })
+  creditCardPeriod?: CreditCardPeriod;
 
   @ManyToOne(() => Category, (category) => category.expenses)
   @JoinColumn({

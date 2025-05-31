@@ -68,4 +68,8 @@ export class CreateExpenseDto {
   @IsOptional()
   @IsBoolean()
   isRecurring?: boolean;
+
+  @IsOptional()
+  @IsUUID()
+  creditCardPeriodId?: string;
 }

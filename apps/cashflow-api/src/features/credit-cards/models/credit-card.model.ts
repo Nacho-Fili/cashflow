@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { ModificationTrackedModel } from '../../../shared/entities/modification-tracked.model';
 import { Bank } from '../../banks/models/bank.model';
-import { Expense } from '../../expenses/models/expense.model';
+import { CreditCardPeriod } from './credit-card-period.model';
 
 @Entity('credit_cards')
 export class CreditCard extends ModificationTrackedModel {
@@ -9,7 +9,7 @@ export class CreditCard extends ModificationTrackedModel {
   name: string;
 
   @Column({ nullable: true })
-  lastFourDigits: string;
+  lastFourDigits?: string;
 
   @ManyToOne(() => Bank, (bank) => bank.creditCards)
   @JoinColumn({
@@ -21,14 +21,8 @@ export class CreditCard extends ModificationTrackedModel {
   @Column({ type: 'int', nullable: true })
   creditLimit: number;
 
-  @Column({ nullable: true, type: 'datetime' })
-  closingDay: Date;
-
-  @Column({ nullable: true, type: 'int' })
-  dueDay: number;
-
-  @OneToMany(() => Expense, (expense) => expense.creditCard)
-  expenses: Expense[];
+  @OneToMany(() => CreditCardPeriod, (period) => period.creditCard)
+  periods: CreditCardPeriod[];
 
   constructor(partial: Partial<CreditCard>) {
     super();

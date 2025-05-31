@@ -26,8 +26,12 @@ export class CreditCardsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<CreditCardDto> {
-    return this.creditCardsService.findOne(id);
+  async findOne(
+    @Param('id') id: string,
+    @Query('periods') periods?: string
+  ): Promise<CreditCardDto> {
+    const periodsNum = periods ? parseInt(periods, 10) : 3;
+    return this.creditCardsService.findOne(id, periodsNum);
   }
 
   @Post()

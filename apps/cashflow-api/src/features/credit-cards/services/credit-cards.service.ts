@@ -17,20 +17,35 @@ export class CreditCardsService {
 
   async findAll(): Promise<CreditCardDto[]> {
     const creditCards = await this.creditCardRepository.find({
-      relations: ['bank'],
+      relations: ['bank', 'periods'],
     });
-    return creditCards.map((card) => this.creditCardMapper.toDto(card));
+    return creditCards.map((card) => {
+      const sortedPeriods = (card.periods || []).sort(
+        (a, b) =>
+          new Date(b.closingDate).getTime() - new Date(a.closingDate).getTime(),
+      );
+
+      card.periods = sortedPeriods.slice(0, 2);
+      return this.creditCardMapper.toDto(card, true);
+    });
   }
 
-  async findOne(id: string): Promise<CreditCardDto> {
+  async findOne(id: string, periods: number = 3): Promise<CreditCardDto> {
     const creditCard = await this.creditCardRepository.findOne({
       where: { id },
-      relations: ['bank'],
+      relations: ['bank', 'periods', 'periods.expenses'],
     });
     if (!creditCard) {
       throw new NotFoundException(`Credit Card with ID ${id} not found`);
     }
-    return this.creditCardMapper.toDto(creditCard);
+
+    const sortedPeriods = (creditCard.periods || []).sort(
+      (a, b) =>
+        new Date(b.closingDate).getTime() - new Date(a.closingDate).getTime(),
+    );
+
+    creditCard.periods = sortedPeriods.slice(0, periods);
+    return this.creditCardMapper.toDto(creditCard, false);
   }
 
   async create(

@@ -20,4 +20,9 @@ export class Bank extends ModificationTrackedModel {
 
   @OneToMany(() => Balance, (balance) => balance.bank)
   balances: Balance[];
+
+  constructor(partial: Partial<Bank> = {}) {
+    super();
+    Object.assign(this, partial);
+  }
 }

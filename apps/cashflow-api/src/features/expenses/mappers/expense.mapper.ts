@@ -3,7 +3,7 @@ import { Expense, ExpenseType } from '../models/expense.model';
 import { ExpenseDto } from '../dtos/expense.dto';
 import { CreateExpenseDto } from '../dtos/create-expense.dto';
 import { UpdateExpenseDto } from '../dtos/update-expense.dto';
-import { CreditCard } from '../../credit-cards/models/credit-card.model';
+import { CreditCardPeriod } from '../../credit-cards/models/credit-card-period.model';
 import { Balance } from '../../balances/models/balance.model';
 
 @Injectable()
@@ -14,11 +14,11 @@ export class ExpenseMapper {
     expense.amount = createExpenseDto.amount;
     expense.type = createExpenseDto.type;
     expense.date = createExpenseDto.date;
-    if (createExpenseDto.creditCardId) {
-      expense.creditCard = new CreditCard({ id: createExpenseDto.creditCardId });
+    if (createExpenseDto.creditCardPeriodId) {
+      expense.creditCardPeriod = Object.assign(new CreditCardPeriod(), { id: createExpenseDto.creditCardPeriodId });
     }
     if (createExpenseDto.balanceId) {
-      expense.balance = new Balance({ id: createExpenseDto.balanceId });
+      expense.balance = Object.assign(new Balance(), { id: createExpenseDto.balanceId });
     }
     expense.categoryId = createExpenseDto.categoryId;
 
@@ -49,7 +49,7 @@ export class ExpenseMapper {
     expenseDto.amount = expense.amount;
     expenseDto.type = expense.type;
     expenseDto.date = expense.date;
-    expenseDto.creditCardId = expense.creditCard?.id;
+    expenseDto.creditCardPeriodId = expense.creditCardPeriod?.id;
     expenseDto.balanceId = expense.balance?.id;
     expenseDto.categoryId = expense.categoryId;
     expenseDto.totalInstallments = expense.totalInstallments;
@@ -75,8 +75,11 @@ export class ExpenseMapper {
     if (updateExpenseDto.date !== undefined) {
       expense.date = updateExpenseDto.date;
     }
-    if (updateExpenseDto.creditCardId !== undefined) {
-      expense.creditCard = new CreditCard({ id: updateExpenseDto.creditCardId });
+    if (updateExpenseDto.creditCardPeriodId !== undefined) {
+      expense.creditCardPeriod = Object.assign(new CreditCardPeriod(), { id: updateExpenseDto.creditCardPeriodId });
+    }
+    if (updateExpenseDto.balanceId !== undefined) {
+      expense.balance = Object.assign(new Balance(), { id: updateExpenseDto.balanceId });
     }
     if (updateExpenseDto.categoryId !== undefined) {
       expense.categoryId = updateExpenseDto.categoryId;

@@ -14,6 +14,12 @@
     },
     {
       "path": "./apps/cashflow-api"
+    },
+    {
+      "path": "./apps/-e2e"
+    },
+    {
+      "path": "./apps/"
     }
   ]
 }

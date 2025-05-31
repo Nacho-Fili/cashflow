@@ -7,6 +7,7 @@ export class ExpenseDto {
   type: ExpenseType;
   date: Date;
   creditCardId?: string;
+  creditCardPeriodId?: string;
   categoryId: string;
   totalInstallments?: number | null;
   currentInstallment?: number | null;
