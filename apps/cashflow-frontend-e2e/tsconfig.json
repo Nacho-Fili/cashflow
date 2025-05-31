@@ -1,25 +1,26 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "outDir": "out-tsc/cypress",
     "allowJs": true,
-    "outDir": "out-tsc/playwright",
+    "types": ["cypress", "node"],
     "sourceMap": false
   },
   "include": [
     "**/*.ts",
     "**/*.js",
-    "playwright.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.spec.js",
-    "src/**/*.test.ts",
-    "src/**/*.test.js",
-    "src/**/*.d.ts"
+    "cypress.config.ts",
+    "**/*.cy.ts",
+    "**/*.cy.tsx",
+    "**/*.cy.js",
+    "**/*.cy.jsx",
+    "**/*.d.ts"
   ],
   "exclude": [
     "out-tsc",
     "test-output",
     "eslint.config.js",
-    "eslint.config.mjs",
-    "eslint.config.cjs"
+    "eslint.config.cjs",
+    "eslint.config.mjs"
   ]
 }
