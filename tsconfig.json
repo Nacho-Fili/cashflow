@@ -16,12 +16,6 @@
       "path": "./apps/cashflow-api"
     },
     {
-      "path": "./apps/-e2e"
-    },
-    {
-      "path": "./apps/"
-    },
-    {
       "path": "./apps/cashflow-frontend-e2e"
     },
     {
